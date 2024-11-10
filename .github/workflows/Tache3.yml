@@ -12,12 +12,16 @@ jobs:
     strategy:
       matrix:
         # Define different sets of JVM arguments to test
-        jvm_flag:
-        - "-Xms512m -Xmx1g"
-        - "-Xms1g -Xmx2g -XX:+UseG1GC"
-        - "-Xms1g -Xmx2g -XX:+UseParallelGC"
-        - "-Xms1g -Xmx2g -XX:+UseCompressedOops -XX:+UseStringDeduplication"
-        - "-Xms2g -Xmx4g -XX:+UseConcMarkSweepGC"
+        jvm_flags:
+
+          - '-XX:+UseG1GC'  # Garbage Collection
+          - '-XX:CICompilerCount=2'  # Performance
+          - '-XX:+PrintGCDetails'  # Debugging
+          - '-XX:-AllowUserSignalHandlers'  # Security
+          - '-XX:HeapDumpPath=./heapdumps'  # Miscellaneous
+          - "-Xms1g -Xmx2g -XX:+UseCompressedOops -XX:+UseStringDeduplication"  # Garbage Collection
+
+
 
     name: Build and Test with flag ${{ matrix.jvm_flag }}
 
