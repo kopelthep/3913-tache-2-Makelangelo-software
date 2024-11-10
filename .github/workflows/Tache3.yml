@@ -6,20 +6,25 @@ on:
   push:
   pull_request:
 
+
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        # Define different sets of JVM arguments to test
-        jvm_flags:
-
-          - '-XX:+UseG1GC'  # Garbage Collection
-          - '-XX:CICompilerCount=2'  # Performance
-          - '-XX:+PrintGCDetails'  # Debugging
-          - '-XX:-AllowUserSignalHandlers'  # Security
-          - '-XX:HeapDumpPath=./heapdumps'  # Miscellaneous
-          - "-Xms1g -Xmx2g -XX:+UseCompressedOops -XX:+UseStringDeduplication"  # Garbage Collection
+        include:
+          - name: 'Utiliser Garbage Collector G1'
+            jvm_flag: '-XX:+UseG1GC'
+          - name: 'Définir CICompilerCount à 2'
+            jvm_flag: '-XX:CICompilerCount=2'
+          - name: 'Activer GC Details Printing'
+            jvm_flag: '-XX:+PrintGCDetails'
+          - name: 'Désactiver les gestionnaires de signaux utilisateur'
+            jvm_flag: '-XX:-AllowUserSignalHandlers'
+          - name: 'Définir le chemin du HeapDump'
+            jvm_flag: '-XX:HeapDumpPath=./heapdumps'
+          - name: 'Options de mémoire et déduplication de chaînes'
+            jvm_flag: '-Xms1g -Xmx2g -XX:+UseCompressedOops -XX:+UseStringDeduplication'
 
 
 
