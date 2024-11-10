@@ -13,10 +13,11 @@ jobs:
       matrix:
         # Define different sets of JVM arguments to test
         jvm_flag:
-          - "-Xms512m -Xmx1g"
-          - "-Xms1g -Xmx2g"
-          - "-XX:+UseG1GC -Xms512m -Xmx1g"
-          - "-XX:+UseConcMarkSweepGC -Xms1g -Xmx2g"
+        - "-Xms512m -Xmx1g"
+        - "-Xms1g -Xmx2g -XX:+UseG1GC"
+        - "-Xms1g -Xmx2g -XX:+UseParallelGC"
+        - "-Xms1g -Xmx2g -XX:+UseCompressedOops -XX:+UseStringDeduplication"
+        - "-Xms2g -Xmx4g -XX:+UseConcMarkSweepGC"
 
     name: Build and Test with flag ${{ matrix.jvm_flag }}
 
