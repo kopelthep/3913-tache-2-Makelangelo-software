@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - name: 'Utiliser Garbage Collector G1'
+          - name: 'Utiliser Garbage Collector G1' #Garbage collector
             jvm_flag: '-XX:+UseG1GC'
           - name: 'Définir CICompilerCount à 2'
             jvm_flag: '-XX:CICompilerCount=2'
